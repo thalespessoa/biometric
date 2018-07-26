@@ -16,6 +16,8 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import android.widget.Toast
+import de.example.biometric.drawables.BackgroundDrawable
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
 import java.security.*
 import java.security.cert.CertificateException
@@ -28,6 +30,8 @@ import javax.crypto.SecretKey
 class MainActivity : AppCompatActivity() {
     private val KEY_NAME = "yourKey"
 
+    private val backgroundImageView by lazy { background_image_view }
+
     lateinit var keyguardManager: KeyguardManager
     lateinit var fingerprintManager: FingerprintManager
     lateinit var textView: TextView
@@ -39,6 +43,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        backgroundImageView.setImageDrawable(BackgroundDrawable())
 
         textView = findViewById(R.id.text_view)
 
