@@ -12,10 +12,9 @@ class BackgroundDrawable : Drawable() {
     private val LAST_COLOR = 0xff8f5be1
 
     private val paint by lazy {
-        val p = Paint()
-        p.style = Paint.Style.FILL
-
-        p
+        Paint().apply {
+            style = Paint.Style.FILL
+        }
     }
 
     override fun draw(canvas: Canvas?) {
