@@ -71,7 +71,7 @@ class FingerPrintWrapper(private val context:Context) {
         }
     }
 
-    fun getUser():String {
+    fun getUser():String? {
         val mPrefs = context.getSharedPreferences("myPrefs", MODE_PRIVATE)
         return mPrefs.getString("user", null)
     }

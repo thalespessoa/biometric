@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.TargetApi
 import android.app.KeyguardManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.fingerprint.FingerprintManager
 import android.os.Build
@@ -14,6 +15,7 @@ import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.KeyProperties
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import de.example.biometric.drawables.BackgroundDrawable
@@ -29,6 +31,10 @@ import javax.crypto.SecretKey
 
 class MainActivity : AppCompatActivity() {
     private val backgroundImageView by lazy { background_image_view }
+    private val signInButton by lazy { button_login }
+    private val fingerprintContainer by lazy { fingerprint }
+
+    private val fingerprintWrapped by lazy { FingerPrintWrapper(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +42,14 @@ class MainActivity : AppCompatActivity() {
 
         backgroundImageView.setImageDrawable(BackgroundDrawable())
 
+        signInButton.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        fingerprintContainer.visibility = fingerprintWrapped.getUser()?.let { View.VISIBLE } ?: View.INVISIBLE
+    }
 }

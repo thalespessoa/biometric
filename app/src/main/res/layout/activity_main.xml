@@ -38,6 +38,7 @@
             android:ems="10"
             android:hint="@string/email_hint"
             android:inputType="textEmailAddress"
+            android:text="mobile@shore.com"
             android:paddingLeft="@dimen/row_item_margin"
             android:paddingRight="@dimen/row_item_margin"
             android:textColorHint="@color/turquoise"/>
@@ -54,6 +55,7 @@
             android:inputType="textPassword"
             android:paddingLeft="@dimen/row_item_margin"
             android:paddingRight="@dimen/row_item_margin"
+            android:text="@string/app_name"
             android:textColorHint="@color/turquoise"/>
 
         <FrameLayout
@@ -63,7 +65,7 @@
             android:background="@color/turquoise">
 
             <Button
-                android:id="@+id/buttonLogin"
+                android:id="@+id/button_login"
                 style="@style/accentSelectableItemBackgroundInverse"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
