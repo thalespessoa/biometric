@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var keyguardManager: KeyguardManager
     lateinit var fingerprintManager: FingerprintManager
-    lateinit var textView: TextView
     lateinit var keyStore: KeyStore
     lateinit var keyGenerator: KeyGenerator
     lateinit var cipher: Cipher
@@ -46,8 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         backgroundImageView.setImageDrawable(BackgroundDrawable())
 
-        textView = findViewById(R.id.text_view)
-
+/*
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             keyguardManager = getSystemService(KEYGUARD_SERVICE) as KeyguardManager
             fingerprintManager = getSystemService(FINGERPRINT_SERVICE) as FingerprintManager
@@ -78,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         if (initCipher()) {
             cryptoObject = FingerprintManager.CryptoObject(cipher)
             auth()
-        }
+        }*/
     }
 
     private fun auth() {

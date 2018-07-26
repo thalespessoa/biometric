@@ -8,4 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="accentSelectableItemBackgroundInverse">
+        <item name="android:theme">@style/accentSelectableItemBackgroundThemeInverse</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="accentSelectableItemBackgroundThemeInverse">
+        <item name="colorControlHighlight">@color/color_primary_background</item>
+        <item name="colorButtonNormal">@color/turquoise</item>
+    </style>
+
+
 </resources>
