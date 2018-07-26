@@ -73,9 +73,32 @@
                 android:textColor="@color/color_primary_background"
                 android:textSize="18sp"/>
 
-            
+
         </FrameLayout>
 
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/fingerprint"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/fingerprint_icon"
+                android:layout_marginTop="64dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_baseline_fingerprint"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/row_item_margin"
+                android:textColor="@color/color_primary_background"
+                android:text="@string/fingerprint_instruction"/>
+        </LinearLayout>
 
     </LinearLayout>
 

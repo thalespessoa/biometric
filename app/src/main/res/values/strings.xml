@@ -7,4 +7,5 @@
     <string name="login">Sign in</string>
     <string name="or">OR</string>
     <string name="email_hint">Email</string>
+    <string name="fingerprint_instruction">Sign in using fingerprint</string>
 </resources>
