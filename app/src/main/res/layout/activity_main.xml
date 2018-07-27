@@ -1,24 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
         <ImageView
             android:id="@+id/background_image_view"
+            android:background="@color/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="40dp">
+
+        <ImageView
+            android:id="@+id/image_view_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="45dp"
+            android:src="@drawable/logo"/>
+
+        <EditText
+            android:id="@+id/edit_text_email"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/color_primary_background"
+            android:ems="10"
+            android:hint="@string/email_hint"
+            android:inputType="textEmailAddress"
+            android:text="mobile@shore.com"
+            android:paddingLeft="@dimen/row_item_margin"
+            android:paddingRight="@dimen/row_item_margin"
+            android:textColorHint="@color/turquoise"/>
+
+        <include layout="@layout/divider"/>
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/color_primary_background"
+            android:ems="10"
+            android:hint="@string/password_hint"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/row_item_margin"
+            android:paddingRight="@dimen/row_item_margin"
+            android:text="@string/app_name"
+            android:textColorHint="@color/turquoise"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="@dimen/login_field_space"
+            android:background="@color/turquoise">
+
+            <Button
+                android:id="@+id/button_login"
+                style="@style/accentSelectableItemBackgroundInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:textColor="@color/color_primary_background"
+                android:textSize="18sp"/>
+
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/fingerprint"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/fingerprint_icon"
+                android:layout_marginTop="64dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_baseline_fingerprint"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/row_item_margin"
+                android:textColor="@color/color_primary_background"
+                android:text="@string/fingerprint_instruction"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
