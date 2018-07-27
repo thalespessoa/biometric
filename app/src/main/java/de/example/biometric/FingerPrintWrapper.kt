@@ -90,14 +90,17 @@ class FingerPrintWrapper(private val context:Context) {
 
         checkAuth(object :FingerprintHandler(context) {
             override fun onAuthenticationError(errMsgId: Int, errString: CharSequence) {
+                cancellationSignal?.cancel()
                 onSaveUserFingerPrint.onFingerprintError("Authentication error\n$errString")
             }
 
             override fun onAuthenticationFailed() {
+                cancellationSignal?.cancel()
                 onSaveUserFingerPrint.onFingerprintError("Authentication failed")
             }
 
             override fun onAuthenticationHelp(helpMsgId: Int, helpString: CharSequence) {
+                cancellationSignal?.cancel()
                 onSaveUserFingerPrint.onFingerprintError("Authentication help\n$helpString")
             }
 
@@ -116,14 +119,17 @@ class FingerPrintWrapper(private val context:Context) {
 
         checkAuth(object :FingerprintHandler(context) {
             override fun onAuthenticationError(errMsgId: Int, errString: CharSequence) {
+                cancellationSignal?.cancel()
                 callback("Authentication error\n$errString")
             }
 
             override fun onAuthenticationFailed() {
+                cancellationSignal?.cancel()
                 callback("Authentication failed")
             }
 
             override fun onAuthenticationHelp(helpMsgId: Int, helpString: CharSequence) {
+                cancellationSignal?.cancel()
                 callback("Authentication help\n$helpString")
             }
 
