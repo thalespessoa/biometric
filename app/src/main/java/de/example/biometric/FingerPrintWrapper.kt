@@ -14,7 +14,6 @@ import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.KeyProperties
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import java.io.IOException
 import java.security.*
 import java.security.cert.CertificateException
@@ -91,22 +90,18 @@ class FingerPrintWrapper(private val context:Context) {
 
         checkAuth(object :FingerprintHandler(context) {
             override fun onAuthenticationError(errMsgId: Int, errString: CharSequence) {
-                Toast.makeText(context, "Authentication error\n$errString", Toast.LENGTH_LONG).show()
                 onSaveUserFingerPrint.onFingerprintError("Authentication error\n$errString")
             }
 
             override fun onAuthenticationFailed() {
-                Toast.makeText(context, "Authentication failed", Toast.LENGTH_LONG).show()
                 onSaveUserFingerPrint.onFingerprintError("Authentication failed")
             }
 
             override fun onAuthenticationHelp(helpMsgId: Int, helpString: CharSequence) {
-                Toast.makeText(context, "Authentication help\n$helpString", Toast.LENGTH_LONG).show()
                 onSaveUserFingerPrint.onFingerprintError("Authentication help\n$helpString")
             }
 
             override fun onAuthenticationSucceeded(result: FingerprintManager.AuthenticationResult) {
-                Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
                 prefsEditor.putString("user", userName)
                 prefsEditor.putString(userName, "dasdsa")
                 prefsEditor.apply()
@@ -121,28 +116,31 @@ class FingerPrintWrapper(private val context:Context) {
 
         checkAuth(object :FingerprintHandler(context) {
             override fun onAuthenticationError(errMsgId: Int, errString: CharSequence) {
-                Toast.makeText(context, "Authentication error\n$errString", Toast.LENGTH_LONG).show()
                 callback("Authentication error\n$errString")
             }
 
             override fun onAuthenticationFailed() {
-                Toast.makeText(context, "Authentication failed", Toast.LENGTH_LONG).show()
                 callback("Authentication failed")
             }
 
             override fun onAuthenticationHelp(helpMsgId: Int, helpString: CharSequence) {
-                Toast.makeText(context, "Authentication help\n$helpString", Toast.LENGTH_LONG).show()
                 callback("Authentication help\n$helpString")
             }
 
             override fun onAuthenticationSucceeded(result: FingerprintManager.AuthenticationResult) {
-                Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
 //                prefsEditor.putString("user", userName)
 //                prefsEditor.putString(userName, "dasdsa")
 //                prefsEditor.apply()
                 callback(null)
             }
         })
+    }
+
+    fun clear() {
+        val mPrefs = context.getSharedPreferences("myPrefs", MODE_PRIVATE)
+        val prefsEditor = mPrefs.edit()
+        prefsEditor.clear()
+        prefsEditor.commit()
     }
 
     private fun checkAuth(fingerprintHandler: FingerprintHandler) {
@@ -241,18 +239,14 @@ class FingerprintException(e: Exception) : Exception(e)
 abstract class FingerprintHandler(private val context:Context) : FingerprintManager.AuthenticationCallback() {
 
     override fun onAuthenticationError(errMsgId: Int, errString: CharSequence) {
-        Toast.makeText(context, "Authentication error\n$errString", Toast.LENGTH_LONG).show()
     }
 
     override fun onAuthenticationFailed() {
-        Toast.makeText(context, "Authentication failed", Toast.LENGTH_LONG).show()
     }
 
     override fun onAuthenticationHelp(helpMsgId: Int, helpString: CharSequence) {
-        Toast.makeText(context, "Authentication help\n$helpString", Toast.LENGTH_LONG).show()
     }
 
     override fun onAuthenticationSucceeded(result: FingerprintManager.AuthenticationResult) {
-        Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
     }
 }
