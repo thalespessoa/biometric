@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import de.example.biometric.drawables.BackgroundDrawable
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -30,13 +31,20 @@ class MainActivity : AppCompatActivity() {
         backgroundImageView.setImageDrawable(BackgroundDrawable())
 
         signInButton.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            login()
         }
     }
 
     override fun onResume() {
         super.onResume()
+        fingerprintContainer.visibility = fingerprintWrapped.getUser()?.let {
+            fingerprintWrapped.checkUser("mobile@shore.com") { error ->
+                error?.let { Toast.makeText(this, error, Toast.LENGTH_LONG).show() } ?: login()
+            }
+            View.VISIBLE } ?: View.INVISIBLE
+    }
 
-        fingerprintContainer.visibility = fingerprintWrapped.getUser()?.let { View.VISIBLE } ?: View.INVISIBLE
+    private fun login() {
+        startActivity(Intent(this, AppActivity::class.java))
     }
 }

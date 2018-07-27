@@ -47,8 +47,13 @@ class SettingsActivity : AppCompatActivity() {
 
                     override fun onWaintingFingerprint() {
                         touchDialog.visibility = View.VISIBLE
+                        fingerprintStatus.visibility = View.GONE
+                        fingerprintIcon.alpha = 1f
+                        fingerprintInstructions.text = "Touch the fingerprint\nsensor to complete"
                     }
                 })
+            } else {
+                fingerprintWrapped.clear()
             }
         }
     }
@@ -57,6 +62,6 @@ class SettingsActivity : AppCompatActivity() {
         val h = Handler()
         h.postDelayed({
             touchDialog.visibility = View.GONE
-        }, 4000)
+        }, 3000)
     }
 }

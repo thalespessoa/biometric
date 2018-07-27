@@ -55,7 +55,6 @@
             android:inputType="textPassword"
             android:paddingLeft="@dimen/row_item_margin"
             android:paddingRight="@dimen/row_item_margin"
-            android:text="@string/app_name"
             android:textColorHint="@color/turquoise"/>
 
         <FrameLayout
