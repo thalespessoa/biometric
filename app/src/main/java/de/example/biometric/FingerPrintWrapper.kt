@@ -37,6 +37,13 @@ class FingerPrintWrapper(private val context:Context) {
     lateinit var cipher: Cipher
     lateinit var cryptoObject: FingerprintManager.CryptoObject
 
+    interface OnSaveUserFingerPrint {
+        fun onFingerprintSaved()
+        fun onFingerprintError(error:String)
+        fun onWaintingFingerprint()
+    }
+
+
     init {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -60,7 +67,7 @@ class FingerPrintWrapper(private val context:Context) {
 //            textView.text = "Please enable lockscreen security in your device's Settings"
         } else {
             try {
-                generateKey();
+                generateKey()
             } catch (e: FingerprintException) {
                 e.printStackTrace()
             }
@@ -76,24 +83,26 @@ class FingerPrintWrapper(private val context:Context) {
         return mPrefs.getString("user", null)
     }
 
-    fun saveUser(userName:String, callback:(error:String?) ->Unit) {
+    fun saveUserFingerPrint(userName:String, onSaveUserFingerPrint:OnSaveUserFingerPrint) {
         val mPrefs = context.getSharedPreferences("myPrefs", MODE_PRIVATE)
         val prefsEditor = mPrefs.edit()
+
+        onSaveUserFingerPrint.onWaintingFingerprint()
 
         checkAuth(object :FingerprintHandler(context) {
             override fun onAuthenticationError(errMsgId: Int, errString: CharSequence) {
                 Toast.makeText(context, "Authentication error\n$errString", Toast.LENGTH_LONG).show()
-                callback("Authentication error\n$errString")
+                onSaveUserFingerPrint.onFingerprintError("Authentication error\n$errString")
             }
 
             override fun onAuthenticationFailed() {
                 Toast.makeText(context, "Authentication failed", Toast.LENGTH_LONG).show()
-                callback("Authentication failed")
+                onSaveUserFingerPrint.onFingerprintError("Authentication failed")
             }
 
             override fun onAuthenticationHelp(helpMsgId: Int, helpString: CharSequence) {
                 Toast.makeText(context, "Authentication help\n$helpString", Toast.LENGTH_LONG).show()
-                callback("Authentication help\n$helpString")
+                onSaveUserFingerPrint.onFingerprintError("Authentication help\n$helpString")
             }
 
             override fun onAuthenticationSucceeded(result: FingerprintManager.AuthenticationResult) {
@@ -101,7 +110,7 @@ class FingerPrintWrapper(private val context:Context) {
                 prefsEditor.putString("user", userName)
                 prefsEditor.putString(userName, "dasdsa")
                 prefsEditor.apply()
-                callback(null)
+                onSaveUserFingerPrint.onFingerprintSaved()
             }
         })
     }
@@ -138,9 +147,6 @@ class FingerPrintWrapper(private val context:Context) {
 
     private fun checkAuth(fingerprintHandler: FingerprintHandler) {
         cancellationSignal = CancellationSignal()
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
-            return
-        }
         fingerprintManager.authenticate(cryptoObject, cancellationSignal, 0, fingerprintHandler, null)
     }
 
